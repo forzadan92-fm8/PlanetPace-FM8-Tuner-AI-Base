@@ -140,7 +140,7 @@
     <div class="planet planet-1"><div class="ring ring-1"></div><div class="ring ring-2"></div></div>
     <div class="planet planet-2"></div>
     <div class="planet planet-3"></div>
-
+ 
     <header class="app-header">
       <div class="app-header-icon">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c8a200" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="16" ry="5" transform="rotate(-25 12 12)" stroke-opacity="0.4"/><circle cx="12" cy="12" r="3" fill="rgba(200,162,0,0.3)"/></svg>
@@ -152,7 +152,7 @@
       </div>
       <span class="version">v.8</span>
     </header>
-
+ 
     <!-- CAR SPECIFICATIONS -->
     <section class="section-card">
       <div class="section-header">
@@ -251,7 +251,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- TUNING RANGES (Optional) -->
     <section class="section-card">
       <div class="section-header collapsible orange" onclick="toggleSection('tuningRanges')">
@@ -283,7 +283,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- TIRES & WHEELS -->
     <section class="section-card">
       <div class="section-header collapsible" onclick="toggleSection('tiresWheels')">
@@ -322,7 +322,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- FUEL & AIR -->
     <section class="section-card">
       <div class="section-header collapsible" onclick="toggleSection('fuelAir')">
@@ -343,7 +343,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- ENGINE -->
     <section class="section-card">
       <div class="section-header collapsible" onclick="toggleSection('engine')">
@@ -365,7 +365,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- PLATFORM & HANDLING -->
     <section class="section-card">
       <div class="section-header collapsible" onclick="toggleSection('platform')">
@@ -394,7 +394,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- DRIVETRAIN -->
     <section class="section-card">
       <div class="section-header collapsible" onclick="toggleSection('drivetrain')">
@@ -414,7 +414,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- AERO & APPEARANCE -->
     <section class="section-card">
       <div class="section-header collapsible" onclick="toggleSection('aero')">
@@ -446,7 +446,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- CONVERSION -->
     <section class="section-card">
       <div class="section-header collapsible" onclick="toggleSection('conversion')">
@@ -467,7 +467,7 @@
         </div>
       </div>
     </section>
-
+ 
     <!-- TUNING PROFILE -->
     <section class="section-card">
       <div class="section-header"><span>🎯 Tuning Profile</span></div>
@@ -485,9 +485,9 @@
         </div>
       </div>
     </section>
-
+ 
     <button class="generate-btn" onclick="generateTune()">🏁 Generate Complete Tune</button>
-
+ 
     <div id="tuneOutput" class="tune-output hidden">
       <div class="tune-output-header">
         <h2 id="tuneTitle">Generated Tune</h2>
@@ -498,7 +498,7 @@
       </div>
       <div id="tuneResults"></div>
     </div>
-
+ 
     <!-- FEEDBACK ASSISTANT -->
     <section class="section-card" style="margin-top:24px;">
       <div class="section-header collapsible purple" onclick="toggleSection('feedback')">
@@ -526,27 +526,27 @@
         <div id="feedbackResults" class="feedback-results"></div>
       </div>
     </section>
-
+ 
     <footer class="app-footer">
       <p><strong>Planet Pace — Forza Motorsport 8 AI Tuner</strong></p>
       <p>Physics-accurate base tunes • Part-based adjustability • Feedback assistant</p>
     </footer>
   </div>
-
+ 
 <script>
 // ============================================================
 // GLOBALS & HELPERS
 // ============================================================
 const units = { power:'hp', torque:'lb-ft', weight:'lbs', speed:'mph' };
 const sections = {};
-
+ 
 function setUnit(btn) {
   const g = btn.dataset.group;
   units[g] = btn.dataset.unit;
   document.querySelectorAll(`.unit-btn[data-group="${g}"]`).forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 }
-
+ 
 function toggleSection(id) {
   sections[id] = !sections[id];
   const body = document.getElementById(id + 'Body');
@@ -554,7 +554,7 @@ function toggleSection(id) {
   body.classList.toggle('collapsed', !sections[id]);
   icon.textContent = sections[id] ? '−' : '+';
 }
-
+ 
 function getVal(id, def) { return parseFloat(document.getElementById(id).value) || def; }
 function getOptVal(id) { const v = document.getElementById(id).value; return v === '' ? null : parseFloat(v); }
 function getSel(id) { return document.getElementById(id).value; }
@@ -564,13 +564,13 @@ function clamp(val, lo, hi) { return Math.max(lo, Math.min(hi, val)); }
 function round1(val) { return Math.round(val * 10) / 10; }
 function round2(val) { return Math.round(val * 100) / 100; }
 function lerp(a, b, t) { return a + (b - a) * t; }
-
+ 
 function updatePIBadge() {
   const cls = getSel('piClass');
   const num = document.getElementById('piNumber').value;
   document.getElementById('piDisplay').textContent = num ? `PI: ${cls} ${num}` : `PI: ${cls}`;
 }
-
+ 
 // ============================================================
 // BODYKIT SYNC (unchanged)
 // ============================================================
@@ -587,7 +587,7 @@ function updateBodykitSync() {
   if (all) document.getElementById('upg_bodykit').value = 'Full Bodykit';
   else if (getSel('upg_bodykit') === 'Full Bodykit') document.getElementById('upg_bodykit').value = 'Stock';
 }
-
+ 
 // ============================================================
 // ADJUSTABILITY CHECKS (unchanged)
 // ============================================================
@@ -609,7 +609,7 @@ function getDiffAdjustability() {
   return {accel:true,decel:true,center:true};
 }
 function hasDriftSteering() { return getSel('upg_springs')==='Drift'; }
-
+ 
 // ============================================================
 // v.7 OPTIMISED TUNING ALGORITHM
 // ============================================================
@@ -624,7 +624,7 @@ function generateTune() {
   let topSpeed = getVal('topSpeed', 200);
   const speedUnit = units.speed;
   if (speedUnit==='km/h') topSpeed *= 0.621;
-
+ 
   const ranges = {
     springFront:{min:getOptVal('springFrontMin'),max:getOptVal('springFrontMax')},
     springRear:{min:getOptVal('springRearMin'),max:getOptVal('springRearMax')},
@@ -635,7 +635,7 @@ function generateTune() {
   };
   const desiredAeroFront = getOptVal('desiredAeroFront');
   const desiredAeroRear = getOptVal('desiredAeroRear');
-
+ 
   const car = {
     year:getSel('carYear'), model:getSel('carModel')||'Custom Build',
     power, torque, weight, speedUnit,
@@ -654,70 +654,99 @@ function generateTune() {
     bodykit:getSel('upg_bodykit'), frontBumper:getSel('upg_frontBumper'), rearWing:getSel('upg_rearWing'),
     ranges, desiredAeroFront, desiredAeroRear
   };
-
-  // ====== DERIVED PHYSICS VALUES ======
-  const wF = car.weightFront / 100;          // front weight fraction (0-1)
+ 
+  // ====== DERIVED VALUES ======
+  const wF = car.weightFront / 100;
   const wR = car.weightRear / 100;
   const weightFrontLbs = weight * wF;
   const weightRearLbs = weight * wR;
-  // Corner weights (assuming symmetric)
-  const cornerFL = weightFrontLbs / 2;
-  const cornerFR = weightFrontLbs / 2;
-  const cornerRL = weightRearLbs / 2;
-  const cornerRR = weightRearLbs / 2;
-  const avgCornerF = (cornerFL + cornerFR) / 2;
-  const avgCornerR = (cornerRL + cornerRR) / 2;
-
-  const pwRatio = power / (weight / 2000);        // HP per ton
+  const avgCornerF = weightFrontLbs / 2;
+  const avgCornerR = weightRearLbs / 2;
+  const pwRatio = power / (weight / 2000);
   const torquePerTon = torque / (weight / 2000);
-  // Tyre grip multiplier (relative to Race = 1.0)
   const tyreMult = {Stock:0.70, Street:0.80, Sport:0.90, Race:1.00, Drag:0.85}[car.tyreCompound] || 0.90;
-  // PI class as a 0-1 factor for intensity scaling
   const piNorm = {E:0.0, D:0.125, C:0.25, B:0.375, A:0.5, S:0.625, R:0.75, P:0.875, X:1.0}[car.piClass] ?? 0.5;
-  // Style/bias/track modifiers as normalised values
   const biasMod = {understeer:-1, neutral:0, oversteer:1}[car.handlingBias] || 0;
   const trackStiffness = {mixed:0.5, technical:0.65, highspeed:0.4, street:0.25}[car.trackType] || 0.5;
-  const widthRatio = car.frontTyreWidth / car.rearTyreWidth;  // <1 means narrower fronts
-
+  const widthRatio = car.frontTyreWidth / car.rearTyreWidth;
+  const dt = car.drivetrain;
+  // Weight distribution deviation from 50/50 (positive = front heavy)
+  const wfDev = wF - 0.5;
+ 
   // ============================================================
-  // 1. TIRES — Corner-weight-proportional pressure
+  // PROVEN BASELINES (from reference tunes)
   // ============================================================
-  // Base optimal pressure scales with PI (higher class = more grip needed = lower pressure)
-  // and adjusts per-corner based on load
-  const basePSI = lerp(32, 26, piNorm * tyreMult); // Race+high PI = lower base
-  // Heavier corners need slightly more pressure for sidewall support, but
-  // wider tyres need less (more contact patch already)
-  const refCornerWeight = 850; // lbs reference corner weight
-  const refWidth = 265;        // mm reference tyre width
-  let tyrePressureFront = basePSI
-    + (avgCornerF - refCornerWeight) * 0.004   // +0.4 PSI per 100lbs over ref
-    - (car.frontTyreWidth - refWidth) * 0.02;  // -0.2 PSI per 10mm wider
-  let tyrePressureRear = basePSI
-    + (avgCornerR - refCornerWeight) * 0.004
-    - (car.rearTyreWidth - refWidth) * 0.02;
-
-  // Style adjustments
-  if (car.driveStyle==='drift')  { tyrePressureFront += 1.5; tyrePressureRear -= 1.5; }
-  if (car.driveStyle==='drag')   { tyrePressureFront += 4; tyrePressureRear -= 6; }
-  if (car.driveStyle==='grip')   { tyrePressureFront -= 0.3; tyrePressureRear -= 0.3; }
-  if (car.trackType==='street')  { tyrePressureFront += 0.5; tyrePressureRear += 0.5; }
-  // Driven axle gets slightly lower for traction
-  if (car.drivetrain==='RWD') tyrePressureRear -= 0.5;
-  if (car.drivetrain==='FWD') tyrePressureFront -= 0.5;
-
+  const baselines = {
+    RWD: {
+      camberF: -1.6, camberR: -0.6, toeF: 0.0, toeR: 0.0, caster: 7.0,
+      arbF: 40, arbR: 40,
+      springFPct: 55, springRPct: 68, // rear stiffer ~1.2x
+      heightFPct: 15, heightRPct: 20, // low, slight rear rake
+      bumpF: 8.0, bumpR: 8.0, reboundF: 13.0, reboundR: 13.0,
+      rcF: 9.8, rcR: 9.8,
+      antiDive: 27, antiSquat: -16,
+      brakeBal: 47, brakePres: 135,
+      aeroFPct: 95, aeroRPct: 25,
+      diffAccel: 65, diffDecel: 30
+    },
+    FWD: {
+      camberF: -1.5, camberR: -1.1, toeF: 0.0, toeR: 0.0, caster: 7.0,
+      arbF: 40, arbR: 40,
+      springFPct: 50, springRPct: 58, // rear stiffer ~1.1x
+      heightFPct: 25, heightRPct: 25, // equal
+      bumpF: 8.0, bumpR: 8.0, reboundF: 13.0, reboundR: 13.0,
+      rcF: 9.8, rcR: 9.8,
+      antiDive: 50, antiSquat: 150,
+      brakeBal: 40, brakePres: 135,
+      aeroFPct: 95, aeroRPct: 25,
+      diffAccel: 100, diffDecel: 0
+    },
+    AWD: {
+      camberF: -1.5, camberR: -2.5, toeF: 0.4, toeR: 0.2, caster: 7.0,
+      arbF: 1, arbR: 40,
+      springFPct: 30, springRPct: 85, // rear ~3x stiffer
+      heightFPct: 25, heightRPct: 35, // rear higher
+      bumpF: 8.0, bumpR: 8.0, reboundF: 13.0, reboundR: 13.0,
+      rcF: 5.1, rcR: 9.8,
+      antiDive: 50, antiSquat: 100,
+      brakeBal: 44, brakePres: 135,
+      aeroFPct: 95, aeroRPct: 25,
+      diffFA: 100, diffFD: 0, diffRA: 100, diffRD: 59, center: 74
+    }
+  };
+  const B = baselines[dt] || baselines.AWD;
+ 
+  // ============================================================
+  // 1. TIRES
+  // ============================================================
+  let tyrePressureFront = 29.0;
+  let tyrePressureRear = 29.5;
+  // Weight distribution adjustment
+  tyrePressureFront += wfDev * 3;
+  tyrePressureRear -= wfDev * 3;
+  // Tyre width: wider = slightly less pressure
+  tyrePressureFront -= (car.frontTyreWidth - 245) * 0.015;
+  tyrePressureRear -= (car.rearTyreWidth - 295) * 0.012;
+  // Compound: race tyres run slightly lower
+  if (car.tyreCompound === 'Race') { tyrePressureFront -= 1.0; tyrePressureRear -= 1.0; }
+  if (car.tyreCompound === 'Stock') { tyrePressureFront += 1.5; tyrePressureRear += 1.5; }
+  // Style
+  if (car.driveStyle === 'drift') { tyrePressureFront += 1.5; tyrePressureRear -= 1.5; }
+  if (car.driveStyle === 'drag')  { tyrePressureFront += 3; tyrePressureRear -= 4; }
+  if (car.driveStyle === 'grip')  { tyrePressureFront -= 0.3; tyrePressureRear -= 0.3; }
+  // Driven axle gets slightly less for traction
+  if (dt === 'RWD') tyrePressureRear -= 0.5;
+  if (dt === 'FWD') tyrePressureFront -= 0.5;
+  if (car.trackType === 'street') { tyrePressureFront += 0.5; tyrePressureRear += 0.5; }
+ 
   tyrePressureFront = Math.round(clamp(tyrePressureFront, 15, 55) * 2) / 2;
   tyrePressureRear = Math.round(clamp(tyrePressureRear, 15, 55) * 2) / 2;
-
+ 
   // ============================================================
-  // 2. GEARING — Progressive ratio (tighter spacing in higher gears)
+  // 2. GEARING — Progressive ratio
   // ============================================================
-  // Pure geometric = constant ratio = huge speed gaps at top (sluggish 5th/6th).
-  // Real race gearboxes use a DECREASING ratio: close-ratio at the top where
-  // you spend the most time, wider spacing at bottom for launch flexibility.
-  // We blend geometric with a compression curve that pulls top gears closer.
   const n = car.numGears;
   const gears = [];
-  // First gear speed — scaled with power so high-HP cars aren't wheel-spinning
   const powerScale = clamp((pwRatio - 150) / 400, 0, 1);
   const torqueScale = clamp((torquePerTon - 200) / 350, 0, 1);
   const combinedScale = Math.max(powerScale, torqueScale * 0.8);
@@ -726,424 +755,313 @@ function generateTune() {
   if (n >= 8) basePct -= 0.02;
   if (n <= 5) basePct += 0.02;
   const firstSpeed = Math.max(25, Math.round(topSpeed * basePct));
-
-  // Progressive spacing: use an exponent < 1.0 to compress higher gears
-  // 0.7 = noticeably tighter top end; 1.0 = pure geometric (even spacing)
-  // Drag wants even spacing, grip wants compressed top, drift moderate
   const compressionExp = car.driveStyle==='drag' ? 0.95 : car.driveStyle==='drift' ? 0.80 : 0.72;
-
   for (let i = 0; i < n; i++) {
     if (i === 0) {
       gears.push({ gear: 1, targetSpeed: firstSpeed });
     } else {
-      // Progress 0→1 through the remaining gears
-      const rawProgress = i / (n - 1);
-      // Apply compression: pow < 1 pulls values toward 1 (compresses top end)
-      const compressed = Math.pow(rawProgress, compressionExp);
+      const compressed = Math.pow(i / (n - 1), compressionExp);
       const targetSpeed = Math.round(firstSpeed + (topSpeed - firstSpeed) * compressed);
       gears.push({ gear: i + 1, targetSpeed: Math.min(targetSpeed, Math.round(topSpeed)) });
     }
   }
   gears[n - 1].targetSpeed = Math.round(topSpeed);
-
+ 
   // ============================================================
-  // 3. ALIGNMENT — Physics-refined
+  // 3. ALIGNMENT — Baseline + adjustments
   // ============================================================
-  // Camber: more negative for heavier corners (more load = more deformation),
-  // scaled by tyre grip and PI
-  const camberIntensity = lerp(0.8, 2.2, piNorm * tyreMult);
-  let frontCamber = -(camberIntensity * (wF / 0.5));  // scale by weight fraction vs 50/50
-  let rearCamber  = -(camberIntensity * 0.55 * (wR / 0.5)); // rear needs less (less steering load)
+  let frontCamber = B.camberF;
+  let rearCamber = B.camberR;
+  // Weight distribution: heavier end needs slightly more negative camber
+  frontCamber -= wfDev * 0.5;
+  rearCamber += wfDev * 0.4;
   // Wider tyres tolerate less camber
-  frontCamber += (car.frontTyreWidth - 245) * 0.004;
-  rearCamber  += (car.rearTyreWidth - 295) * 0.003;
-
-  if (car.driveStyle==='drift') { frontCamber -= 1.8; rearCamber += 0.6; }
-  if (car.driveStyle==='drag')  { frontCamber = -0.3; rearCamber = 0; }
-
+  frontCamber += (car.frontTyreWidth - 245) * 0.003;
+  rearCamber += (car.rearTyreWidth - 295) * 0.002;
+  // Handling bias
+  frontCamber -= biasMod * 0.2;
+  rearCamber += biasMod * 0.15;
+  // Overrides for special styles
+  if (car.driveStyle === 'drift') { frontCamber = -3.5; rearCamber = -1.0; }
+  if (car.driveStyle === 'drag')  { frontCamber = -0.3; rearCamber = 0; }
+ 
   frontCamber = round1(clamp(frontCamber, -5, 0));
-  rearCamber  = round1(clamp(rearCamber, -5, 0));
-
-  // Toe: geometry-based
-  let frontToe, rearToe;
-  if (car.driveStyle==='drift')     { frontToe = 0.5; rearToe = -0.3; }
-  else if (car.driveStyle==='drag') { frontToe = 0; rearToe = 0; }
+  rearCamber = round1(clamp(rearCamber, -5, 0));
+ 
+  let frontToe = B.toeF;
+  let rearToe = B.toeR;
+  if (car.driveStyle === 'drift') { frontToe = 0.6; rearToe = -0.4; }
+  else if (car.driveStyle === 'drag') { frontToe = 0; rearToe = 0; }
   else {
-    // Slight toe-out front for turn-in, more for technical tracks
-    frontToe = lerp(0, 0.3, trackStiffness) - biasMod * 0.1;
-    // Slight toe-in rear for stability, more for high-speed
-    rearToe = lerp(0, 0.15, 1 - trackStiffness) + biasMod * 0.05;
-    if (car.drivetrain==='FWD') frontToe += 0.1;
-    if (car.drivetrain==='RWD') rearToe += 0.05;
+    // Bias adjustments on top of baseline
+    frontToe += biasMod * -0.1;
+    rearToe += biasMod * 0.05;
+    // Track: technical benefits from slight toe-out front
+    if (car.trackType === 'technical') frontToe += 0.1;
   }
   frontToe = round1(clamp(frontToe, -1, 1));
-  rearToe  = round1(clamp(rearToe, -1, 1));
-
-  // Caster: higher = more stability + camber gain in corners
-  let caster = lerp(4.5, 6.5, piNorm);
-  if (car.trackType==='highspeed') caster += 0.6;
-  if (car.trackType==='technical') caster -= 0.4;
-  if (car.driveStyle==='drift') caster += 1.2;
+  rearToe = round1(clamp(rearToe, -1, 1));
+ 
+  // Caster: 7.0 baseline (maxed) across all drivetrains — minor adjustments only
+  let caster = B.caster;
+  if (car.trackType === 'technical') caster -= 0.3;
+  if (car.driveStyle === 'drift') caster = 7.0; // always max for drift
+  if (car.driveStyle === 'drag') caster -= 1.0;
   caster = round1(clamp(caster, 3, 7));
-
+ 
   // ============================================================
-  // 4. SPRINGS — Natural-frequency-based
+  // 4. ANTI-ROLL BARS — Baseline per drivetrain
   // ============================================================
-  // Target natural frequency (Hz): higher PI/stiffer track = higher frequency
-  // Street cars ~1.0-1.5 Hz, race cars ~2.0-3.5 Hz
-  const baseFreqF = lerp(1.2, 3.0, piNorm * trackStiffness);
-  const baseFreqR = baseFreqF * 0.92; // rear slightly softer for stability
-  // Spring rate ~ (2π·freq)² × cornerWeight / g
-  // But we output percentage of range, so we normalise
-  // Higher corner weight = needs stiffer spring proportionally (already handled by freq model)
-  let frontSpringPct = lerp(25, 85, piNorm * trackStiffness);
-  let rearSpringPct  = frontSpringPct * 0.92;
-  // Weight distribution correction: heavier end needs proportionally stiffer
-  frontSpringPct *= (wF / 0.5);
-  rearSpringPct  *= (wR / 0.5);
-  // Ballast adds weight
-  const ballastAdd = {
-    'No Ballast':0,'Extra Light':3,'Light':6,'Medium':10,'Heavy':16,'Extra Heavy':24
-  }[car.ballast] || 0;
-  frontSpringPct += ballastAdd * 0.3;
-  rearSpringPct  += ballastAdd * 0.3;
-
-  if (car.driveStyle==='drift') { frontSpringPct += 12; rearSpringPct -= 15; }
-  if (car.driveStyle==='drag')  { frontSpringPct -= 10; rearSpringPct += 15; }
-  if (car.trackType==='street') { frontSpringPct -= 12; rearSpringPct -= 12; }
-
-  frontSpringPct = Math.round(clamp(frontSpringPct, 0, 100));
-  rearSpringPct  = Math.round(clamp(rearSpringPct, 0, 100));
-
-  const frontSpringActual = mapToRange(frontSpringPct, ranges.springFront.min, ranges.springFront.max);
-  const rearSpringActual  = mapToRange(rearSpringPct, ranges.springRear.min, ranges.springRear.max);
-
-  // ============================================================
-  // 5. RIDE HEIGHT
-  // ============================================================
-  // Lower = better aero/CoG, but need clearance on bumpy tracks
-  let baseHeightPct = lerp(45, 15, piNorm);  // higher PI = lower ride height
-  let frontHeightPct = baseHeightPct;
-  let rearHeightPct  = baseHeightPct + 3; // rear slightly higher for rake (aero benefit)
-
-  if (car.trackType==='street')    { frontHeightPct += 18; rearHeightPct += 18; }
-  if (car.trackType==='highspeed') { frontHeightPct -= 5; rearHeightPct -= 3; }
-  if (car.driveStyle==='drift')    { frontHeightPct -= 3; rearHeightPct += 8; }
-  if (car.driveStyle==='drag')     { frontHeightPct += 5; rearHeightPct -= 8; }
-
-  frontHeightPct = Math.round(clamp(frontHeightPct, 0, 100));
-  rearHeightPct  = Math.round(clamp(rearHeightPct, 0, 100));
-
-  const frontHeightActual = mapToRange(frontHeightPct, ranges.heightFront.min, ranges.heightFront.max);
-  const rearHeightActual  = mapToRange(rearHeightPct, ranges.heightRear.min, ranges.heightRear.max);
-
-  // ============================================================
-  // 6. DAMPING — Derived from spring rate, corner weight, and grip
-  // ============================================================
-  // FM8 meta: bump ~6-8, rebound ~10-13. But these should come from the
-  // car's actual properties, not PI class.
-  //
-  // Bump: controlled by spring stiffness and corner weight.
-  //   Stiffer springs need more bump damping to control them.
-  //   Heavier corners need more bump to resist compression.
-  // Rebound: controlled by spring stiffness, weight, and torque.
-  //   Higher rebound slows weight transfer — high-torque cars need more
-  //   to prevent snap weight shifts. Always significantly higher than bump.
-
-  // Spring-rate factor: how stiff the springs are as 0-1
-  const springFactorF = frontSpringPct / 100;
-  const springFactorR = rearSpringPct / 100;
-  // Weight factor: how heavy each corner is relative to a 3200lb 50/50 car (800lb corner)
-  const weightFactorF = avgCornerF / 800;
-  const weightFactorR = avgCornerR / 800;
-  // Torque factor: high torque = need more rebound to control weight shift
-  const torqueFactor = clamp(torque / 500, 0.5, 1.5); // 500 lb-ft = 1.0
-  // Grip factor: more grip = can support stiffer damping without losing traction
-  const gripScale = tyreMult; // 0.7 (stock) to 1.0 (race)
-
-  // Bump: base ~7, scale with springs and weight
-  let frontBump = 5.5 + springFactorF * 2.5 + (weightFactorF - 1) * 1.5;
-  let rearBump  = 5.5 + springFactorR * 2.5 + (weightFactorR - 1) * 1.5 - 0.3;
-  // Grip allows higher damping without skipping
-  frontBump += (gripScale - 0.85) * 2;
-  rearBump  += (gripScale - 0.85) * 2;
-
-  // Rebound: base ~11, scales with springs, weight, and torque
-  let frontRebound = 9.5 + springFactorF * 2.0 + (weightFactorF - 1) * 1.5 + torqueFactor * 0.8;
-  let rearRebound  = 9.5 + springFactorR * 2.0 + (weightFactorR - 1) * 1.5 + torqueFactor * 0.8;
-  // Driven axle needs more rebound to control squat/weight transfer
-  if (car.drivetrain==='RWD') rearRebound += 0.4;
-  if (car.drivetrain==='FWD') frontRebound += 0.4;
-
-  // Track adjustments (surface, not speed class)
-  if (car.trackType==='street')    { frontBump -= 0.8; rearBump -= 0.8; frontRebound -= 0.8; rearRebound -= 0.8; }
-  if (car.trackType==='highspeed') { frontRebound += 0.3; rearRebound += 0.3; }
-  if (car.trackType==='technical') { frontBump += 0.3; rearBump += 0.3; }
-
-  // Style adjustments
-  if (car.driveStyle==='drift') { frontBump += 1.0; frontRebound += 0.5; rearBump -= 1.5; rearRebound -= 2.0; }
-  if (car.driveStyle==='drag')  { rearBump += 0.5; rearRebound += 0.5; frontBump -= 0.5; }
-
-  // Bias
-  frontBump    += biasMod * 0.3;
-  rearBump     -= biasMod * 0.3;
-  frontRebound += biasMod * 0.4;
-  rearRebound  -= biasMod * 0.4;
-
-  frontBump    = round1(clamp(frontBump, 1, 13));
-  rearBump     = round1(clamp(rearBump, 1, 13));
-  frontRebound = round1(clamp(frontRebound, 1, 13));
-  rearRebound  = round1(clamp(rearRebound, 1, 13));
-
-  // ============================================================
-  // 7. ANTI-ROLL BARS — Coordinated with springs for total roll stiffness
-  // ============================================================
-  // Total roll stiffness distribution: front % vs rear %
-  // More front roll stiffness = more understeer (front lifts inside wheel faster)
-  // Target: ~52-58% front for neutral, adjust with bias
-  let targetFrontRollPct = 55 + biasMod * 6;  // -6 to +6
-  if (car.drivetrain==='FWD') targetFrontRollPct -= 4;
-  if (car.drivetrain==='RWD') targetFrontRollPct += 2;
-  if (car.trackType==='technical') targetFrontRollPct += 3;
-  if (car.trackType==='highspeed') targetFrontRollPct -= 2;
-  if (car.driveStyle==='drift') targetFrontRollPct += 8;
-  if (car.driveStyle==='drag') targetFrontRollPct = 50; // doesn't matter much
-
-  // ARB stiffness: compensate for spring split to achieve target roll distribution
-  // If springs already give 55% front roll stiffness, ARBs fine-tune
-  const springFrontContrib = frontSpringPct / (frontSpringPct + rearSpringPct || 1) * 100;
-  // ARB needs to make up the difference
-  const arbCorrection = targetFrontRollPct - springFrontContrib;
-
-  let baseARBLevel = lerp(10, 32, piNorm);
-  let frontARB = baseARBLevel + arbCorrection * 0.5;
-  let rearARB  = baseARBLevel - arbCorrection * 0.5;
-  // Width difference compensation
-  frontARB += (1 - widthRatio) * 8;
-  rearARB  -= (1 - widthRatio) * 5;
-
-  if (car.driveStyle==='drift') { frontARB += 6; rearARB -= 8; }
-  if (car.driveStyle==='drag')  { frontARB = 12; rearARB = 14; }
-
+  let frontARB = B.arbF;
+  let rearARB = B.arbR;
+  // AWD has extreme split (1/40), RWD/FWD are equal (40/40)
+  // Adjust based on bias
+  if (dt === 'AWD') {
+    // AWD: front stays very soft, rear stays stiff — adjust split with bias
+    frontARB += biasMod * 3;   // oversteer bias = slightly stiffer front
+    rearARB -= biasMod * 2;    // oversteer bias = slightly softer rear
+    // Weight distribution: heavier front could use slightly stiffer front ARB
+    frontARB += wfDev * 8;
+  } else {
+    // RWD/FWD: both stiff baseline, shift balance with bias
+    frontARB += biasMod * 3;
+    rearARB -= biasMod * 3;
+  }
+  // Track adjustments
+  if (car.trackType === 'street') { frontARB -= 3; rearARB -= 3; }
+  // Style overrides
+  if (car.driveStyle === 'drift') { frontARB = 35; rearARB = 10; }
+  if (car.driveStyle === 'drag')  { frontARB = 15; rearARB = 20; }
+ 
   frontARB = round1(clamp(frontARB, 1, 45));
-  rearARB  = round1(clamp(rearARB, 1, 45));
-
+  rearARB = round1(clamp(rearARB, 1, 45));
+ 
+  // ============================================================
+  // 5. SPRINGS — Baseline F/R split per drivetrain
+  // ============================================================
+  let frontSpringPct = B.springFPct;
+  let rearSpringPct = B.springRPct;
+  // Weight distribution: heavier end needs stiffer springs
+  frontSpringPct += wfDev * 15;
+  rearSpringPct -= wfDev * 12;
+  // Ballast
+  const ballastAdd = {'No Ballast':0,'Extra Light':3,'Light':6,'Medium':10,'Heavy':16,'Extra Heavy':24}[car.ballast] || 0;
+  frontSpringPct += ballastAdd * 0.3;
+  rearSpringPct += ballastAdd * 0.3;
+  // Track
+  if (car.trackType === 'street') { frontSpringPct -= 10; rearSpringPct -= 10; }
+  if (car.trackType === 'technical') { frontSpringPct += 5; rearSpringPct += 5; }
+  // Style
+  if (car.driveStyle === 'drift') { frontSpringPct += 10; rearSpringPct -= 15; }
+  if (car.driveStyle === 'drag')  { frontSpringPct -= 8; rearSpringPct += 10; }
+ 
+  frontSpringPct = Math.round(clamp(frontSpringPct, 0, 100));
+  rearSpringPct = Math.round(clamp(rearSpringPct, 0, 100));
+ 
+  const frontSpringActual = mapToRange(frontSpringPct, ranges.springFront.min, ranges.springFront.max);
+  const rearSpringActual = mapToRange(rearSpringPct, ranges.springRear.min, ranges.springRear.max);
+ 
+  // ============================================================
+  // 6. RIDE HEIGHT — Baseline per drivetrain
+  // ============================================================
+  let frontHeightPct = B.heightFPct;
+  let rearHeightPct = B.heightRPct;
+  if (car.trackType === 'street') { frontHeightPct += 15; rearHeightPct += 15; }
+  if (car.trackType === 'highspeed') { frontHeightPct -= 3; rearHeightPct -= 2; }
+  if (car.driveStyle === 'drift') { frontHeightPct -= 3; rearHeightPct += 5; }
+  if (car.driveStyle === 'drag')  { frontHeightPct += 5; rearHeightPct -= 5; }
+ 
+  frontHeightPct = Math.round(clamp(frontHeightPct, 0, 100));
+  rearHeightPct = Math.round(clamp(rearHeightPct, 0, 100));
+ 
+  const frontHeightActual = mapToRange(frontHeightPct, ranges.heightFront.min, ranges.heightFront.max);
+  const rearHeightActual = mapToRange(rearHeightPct, ranges.heightRear.min, ranges.heightRear.max);
+ 
+  // ============================================================
+  // 7. DAMPING — Universal baseline: bump 8.0, rebound 13.0
+  // ============================================================
+  let frontBump = B.bumpF;
+  let rearBump = B.bumpR;
+  let frontRebound = B.reboundF;
+  let rearRebound = B.reboundR;
+  // Track adjustments only (baseline is already proven)
+  if (car.trackType === 'street') { frontBump -= 0.8; rearBump -= 0.8; frontRebound -= 0.8; rearRebound -= 0.8; }
+  // Style overrides
+  if (car.driveStyle === 'drift') { frontBump += 0.5; rearBump -= 1.5; frontRebound += 0; rearRebound -= 2.0; }
+  if (car.driveStyle === 'drag')  { rearBump += 0.5; rearRebound += 0; frontBump -= 0.5; }
+  // Bias: subtle shifts
+  frontBump += biasMod * 0.2;
+  rearBump -= biasMod * 0.2;
+  frontRebound += biasMod * 0.3;
+  rearRebound -= biasMod * 0.3;
+ 
+  frontBump = round1(clamp(frontBump, 1, 13));
+  rearBump = round1(clamp(rearBump, 1, 13));
+  frontRebound = round1(clamp(frontRebound, 1, 13));
+  rearRebound = round1(clamp(rearRebound, 1, 13));
+ 
   // ============================================================
   // 8. STEERING ANGLE (Drift only)
   // ============================================================
   let steeringAngle = null;
   if (hasDriftSteering()) {
     steeringAngle = 50 + biasMod * 5;
-    if (car.trackType==='technical') steeringAngle += 3;
+    if (car.trackType === 'technical') steeringAngle += 3;
     steeringAngle = round2(clamp(steeringAngle, 40, 60));
   }
-
+ 
   // ============================================================
-  // 9. SUSPENSION GEOMETRY — Derived from car properties, not PI class
+  // 9. GEOMETRY — Baseline per drivetrain
   // ============================================================
-  // ROLL CENTERS (FM8):
-  //   Higher FRONT RC = front resists body roll = stiffer front cornering = more understeer
-  //   Higher REAR RC  = rear resists body roll  = stiffer rear cornering  = more oversteer
-  //
-  // What drives roll center height:
-  //   - Axle weight: heavier axle generates more roll force, needs more RC to resist it
-  //   - Tyre width: wider tyres already provide lateral grip, less RC needed to supplement
-  //   - Spring stiffness: softer springs = more body roll = raise RC to compensate
-  //     (stiff springs already control roll, so RC can be lower)
-
-  // Weight factor: heavier axle needs higher RC to resist its roll moment
-  const rcWeightF = (weightFrontLbs / 1600);  // 1600 = reference front axle weight
-  const rcWeightR = (weightRearLbs / 1600);
-  // Tyre width factor: wider tyres reduce the need for geometric roll resistance
-  const rcTyreF = 1 - (car.frontTyreWidth - 245) * 0.003;  // wider = less needed
-  const rcTyreR = 1 - (car.rearTyreWidth - 295) * 0.003;
-  // Spring factor: softer springs = more roll = need more RC; stiffer = less RC needed
-  const rcSpringF = canAdjustSprings() ? (1.3 - springFactorF * 0.6) : 1.0;  // soft springs → 1.3, stiff → 0.7
-  const rcSpringR = canAdjustSprings() ? (1.3 - springFactorR * 0.6) : 1.0;
-
-  // Base RC: moderate positive, scaled by all factors
-  let frontRollCenter = 3.0 * rcWeightF * rcTyreF * rcSpringF;
-  let rearRollCenter  = 3.0 * rcWeightR * rcTyreR * rcSpringR;
-
-  // Handling bias: oversteer = lower front (less front stiffness) + raise rear
-  frontRollCenter += biasMod * -2.0;
-  rearRollCenter  += biasMod * 2.0;
-
-  // Track type
-  if (car.trackType==='technical') { frontRollCenter += 0.8; rearRollCenter += 0.8; }
-  if (car.trackType==='highspeed') { frontRollCenter -= 0.3; rearRollCenter += 0.3; }
-  if (car.trackType==='street')    { frontRollCenter -= 0.3; rearRollCenter -= 0.3; }
-
-  // Drivetrain
-  if (car.drivetrain==='FWD') { frontRollCenter -= 1.2; rearRollCenter += 0.8; }
-  if (car.drivetrain==='RWD') { frontRollCenter += 0.4; rearRollCenter -= 0.3; }
-
+  // Roll centers: RWD/FWD both maxed 9.8/9.8; AWD split 5.1/9.8
+  let frontRollCenter = B.rcF;
+  let rearRollCenter = B.rcR;
+  // AWD front RC adjusts with weight distribution
+  if (dt === 'AWD') {
+    frontRollCenter += wfDev * 5; // heavier front = raise front RC
+  }
+  // Bias: oversteer = lower front, raise rear
+  frontRollCenter -= biasMod * 1.5;
+  rearRollCenter += biasMod * 0.5; // rear already near max, small adjustment
+  // Track
+  if (car.trackType === 'street') { frontRollCenter -= 0.5; rearRollCenter -= 0.5; }
   // Style
-  if (car.driveStyle==='drift') { frontRollCenter -= 1.5; rearRollCenter += 2.5; }
-  if (car.driveStyle==='drag')  { frontRollCenter = 1; rearRollCenter = 1; }
-
+  if (car.driveStyle === 'drift') { frontRollCenter = 3.0; rearRollCenter = 9.8; }
+  if (car.driveStyle === 'drag')  { frontRollCenter = 5.0; rearRollCenter = 5.0; }
+ 
   frontRollCenter = round1(clamp(frontRollCenter, -9.8, 9.8));
-  rearRollCenter  = round1(clamp(rearRollCenter, -9.8, 9.8));
-
-  // ANTI-GEOMETRY (FM8):
-  //   Anti-dive: front stiffer under braking → stabilises entry → REDUCES oversteer
-  //   Anti-squat: rear stiffer under accel → increases exit rotation → INCREASES oversteer
-  //
-  // What drives anti-dive:
-  //   - Front axle weight (more weight = more dive force to resist)
-  //   - Brake balance (more front braking = more dive)
-  //   - Spring softness (soft springs = more pitch = needs more anti-geo)
-  //
-  // What drives anti-squat:
-  //   - Torque (more torque = more squat force)
-  //   - Rear weight (heavier rear = more inertia to control)
-  //   - Drivetrain (driven axle creates squat)
-
-  // Anti-dive: based on front weight and spring softness
-  const diveWeightFactor = weightFrontLbs / 1600;  // heavier front = more dive
-  const diveSpringFactor = canAdjustSprings() ? (1.4 - springFactorF * 0.6) : 1.0;  // soft springs need more
-  let frontAntiDive = 30 * diveWeightFactor * diveSpringFactor;
-
-  // Anti-squat: based on torque and rear weight
-  const squatTorqueFactor = clamp(torque / 450, 0.6, 1.8);  // 450 lb-ft = 1.0
-  const squatWeightFactor = weightRearLbs / 1600;
-  const squatSpringFactor = canAdjustSprings() ? (1.4 - springFactorR * 0.6) : 1.0;
-  let rearAntiSquat = 35 * squatTorqueFactor * squatWeightFactor * squatSpringFactor;
-
+  rearRollCenter = round1(clamp(rearRollCenter, -9.8, 9.8));
+ 
+  // Anti-geometry: vastly different per drivetrain
+  // RWD: low anti-dive (27%), negative anti-squat (-16%)
+  // FWD: mid anti-dive (50%), maxed anti-squat (150%)
+  // AWD: mid anti-dive (50%), high anti-squat (100%)
+  let frontAntiDive = B.antiDive;
+  let rearAntiSquat = B.antiSquat;
   // Bias
-  frontAntiDive -= biasMod * 6;
-  rearAntiSquat += biasMod * 6;
-
-  // Drivetrain: driven axle creates the forces
-  if (car.drivetrain==='FWD') { frontAntiDive += 10; rearAntiSquat -= 6; }
-  if (car.drivetrain==='RWD') { rearAntiSquat += 10; }
-  if (car.drivetrain==='AWD') { rearAntiSquat += 5; frontAntiDive += 3; }
-
-  // Track type
-  if (car.trackType==='technical') { frontAntiDive += 4; }
-  if (car.trackType==='highspeed') { frontAntiDive += 6; rearAntiSquat -= 4; }
-
+  frontAntiDive -= biasMod * 5;
+  rearAntiSquat += biasMod * 5;
+  // Torque: high torque needs more anti-squat control
+  rearAntiSquat += clamp((torquePerTon - 300) * 0.03, -10, 15);
+  // Track
+  if (car.trackType === 'technical') frontAntiDive += 4;
+  if (car.trackType === 'highspeed') { frontAntiDive += 5; rearAntiSquat -= 3; }
   // Style
-  if (car.driveStyle==='drift') { frontAntiDive -= 12; rearAntiSquat += 12; }
-  if (car.driveStyle==='drag')  { frontAntiDive = 20; rearAntiSquat = 35 * squatTorqueFactor + 15; }
-
-  frontAntiDive = Math.round(clamp(frontAntiDive, 0, 150));
-  rearAntiSquat = Math.round(clamp(rearAntiSquat, 0, 150));
-
+  if (car.driveStyle === 'drift') { frontAntiDive -= 10; rearAntiSquat += 10; }
+  if (car.driveStyle === 'drag')  { rearAntiSquat += 15; }
+ 
+  frontAntiDive = Math.round(clamp(frontAntiDive, -150, 150));
+  rearAntiSquat = Math.round(clamp(rearAntiSquat, -150, 150));
+ 
   // ============================================================
-  // 10. AERO — Grip-deficit-based
+  // 10. AERO — Front maxed, rear low as baseline
   // ============================================================
   const frontAeroEnabled = hasFrontAero();
   const rearAeroEnabled = hasRearAero();
   let frontAeroPct, rearAeroPct;
-
+ 
   if (desiredAeroFront !== null && frontAeroEnabled && ranges.aeroFront.min !== null && ranges.aeroFront.max !== null) {
     frontAeroPct = Math.round(clamp(((desiredAeroFront - ranges.aeroFront.min) / (ranges.aeroFront.max - ranges.aeroFront.min)) * 100, 0, 100));
   } else if (frontAeroEnabled) {
-    // More downforce where there's more weight (more grip needed)
-    // But also consider: grip balance — if front is heavy, it already has more mechanical grip
-    // So aero should compensate the LIGHTER end slightly
-    frontAeroPct = 45;
-    frontAeroPct += (wF - 0.5) * 15;       // heavier front = slightly more front DF
-    frontAeroPct -= biasMod * 12;            // oversteer bias = less front DF
-    if (car.trackType==='highspeed') frontAeroPct -= 12;
-    if (car.trackType==='technical') frontAeroPct += 12;
-    if (car.driveStyle==='drag') frontAeroPct = 0;
-    if (car.driveStyle==='drift') frontAeroPct -= 10;
+    frontAeroPct = B.aeroFPct;  // ~95% (near max cornering)
+    if (car.trackType === 'highspeed') frontAeroPct -= 15;
+    if (car.driveStyle === 'drag') frontAeroPct = 0;
+    if (car.driveStyle === 'drift') frontAeroPct -= 10;
+    frontAeroPct -= biasMod * 8;
     frontAeroPct = Math.round(clamp(frontAeroPct, 0, 100));
   } else { frontAeroPct = null; }
-
+ 
   if (desiredAeroRear !== null && rearAeroEnabled && ranges.aeroRear.min !== null && ranges.aeroRear.max !== null) {
     rearAeroPct = Math.round(clamp(((desiredAeroRear - ranges.aeroRear.min) / (ranges.aeroRear.max - ranges.aeroRear.min)) * 100, 0, 100));
   } else if (rearAeroEnabled) {
-    rearAeroPct = 55;
-    rearAeroPct += (wR - 0.5) * 12;
-    rearAeroPct += biasMod * 10;
-    if (car.trackType==='highspeed') rearAeroPct -= 10;
-    if (car.trackType==='technical') rearAeroPct += 10;
-    rearAeroPct -= (1 - widthRatio) * 10;  // wider rears already have grip
-    if (car.driveStyle==='drag') rearAeroPct = 0;
-    if (car.driveStyle==='drift') rearAeroPct += 12;
+    rearAeroPct = B.aeroRPct;  // ~25% (toward speed end)
+    if (car.trackType === 'technical') rearAeroPct += 15;
+    if (car.driveStyle === 'drag') rearAeroPct = 0;
+    if (car.driveStyle === 'drift') rearAeroPct += 15;
+    rearAeroPct += biasMod * 8;
     rearAeroPct = Math.round(clamp(rearAeroPct, 0, 100));
   } else { rearAeroPct = null; }
-
-  // If user specified desired aero, compensate other settings
+ 
+  // Compensate other settings if user specified desired aero
   if (desiredAeroFront !== null || desiredAeroRear !== null) {
     const aeroBoost = ((desiredAeroFront||0) + (desiredAeroRear||0)) / 200;
     if (canAdjustSprings()) {
       frontSpringPct = Math.round(clamp(frontSpringPct + aeroBoost * 8, 0, 100));
-      rearSpringPct  = Math.round(clamp(rearSpringPct + aeroBoost * 8, 0, 100));
+      rearSpringPct = Math.round(clamp(rearSpringPct + aeroBoost * 8, 0, 100));
     }
     frontCamber = round1(clamp(frontCamber - aeroBoost * 0.25, -5, 0));
-    rearCamber  = round1(clamp(rearCamber - aeroBoost * 0.15, -5, 0));
+    rearCamber = round1(clamp(rearCamber - aeroBoost * 0.15, -5, 0));
   }
-
+ 
   const frontAeroActual = desiredAeroFront !== null ? desiredAeroFront : mapToRange(frontAeroPct, ranges.aeroFront.min, ranges.aeroFront.max);
-  const rearAeroActual  = desiredAeroRear !== null ? desiredAeroRear : mapToRange(rearAeroPct, ranges.aeroRear.min, ranges.aeroRear.max);
-
+  const rearAeroActual = desiredAeroRear !== null ? desiredAeroRear : mapToRange(rearAeroPct, ranges.aeroRear.min, ranges.aeroRear.max);
+ 
   // ============================================================
-  // 11. BRAKES — Dynamic weight transfer model
+  // 11. BRAKES — Baseline per drivetrain
   // ============================================================
-  // Under braking, weight transfers forward. Optimal brake balance matches
-  // the dynamic weight on each axle during hard braking.
-  // Simplified: balance ≈ static front% + transfer bonus (~8-12% shift forward)
-  let brakeBalance = Math.round(wF * 100) + 6; // base from weight dist + ~6% forward transfer
-  if (car.drivetrain==='FWD') brakeBalance += 2;  // front engine typically
-  if (car.drivetrain==='RWD') brakeBalance -= 2;
-  brakeBalance -= biasMod * 4;
-  brakeBalance += (car.frontTyreWidth - car.rearTyreWidth) * 0.02;
-  if (car.driveStyle==='drift') brakeBalance -= 5;
-  brakeBalance = Math.round(clamp(brakeBalance, 40, 70));
-
-  // Brake pressure: scale with grip available
-  let brakePressure = Math.round(lerp(88, 120, piNorm * tyreMult));
-  if (car.trackType==='street') brakePressure -= 6;
-  if (car.trackType==='technical') brakePressure += 4;
-  brakePressure = Math.round(clamp(brakePressure, 80, 150));
-
+  // RWD: 47%, FWD: 40%, AWD: ~44%
+  let brakeBalance = B.brakeBal;
+  brakeBalance += wfDev * 6;  // heavier front = more front bias
+  brakeBalance -= biasMod * 3;
+  if (car.driveStyle === 'drift') brakeBalance -= 4;
+  brakeBalance = Math.round(clamp(brakeBalance, 30, 70));
+ 
+  let brakePressure = B.brakePres;
+  if (car.trackType === 'street') brakePressure -= 5;
+  if (car.tyreCompound === 'Stock') brakePressure -= 10;
+  brakePressure = Math.round(clamp(brakePressure, 80, 200));
+ 
   // ============================================================
-  // 12. DIFFERENTIAL — Torque-to-grip ratio model
+  // 12. DIFFERENTIAL — Baseline per drivetrain
   // ============================================================
   const diffAdj = getDiffAdjustability();
   let diff = {};
-  // Estimate torque at wheels per axle (simplified)
-  // Higher torque relative to grip = needs MORE locking to prevent inside spin
-  // But too much = understeer on power (FWD) or oversteer snap (RWD)
-  const gripFactor = tyreMult * (1 + piNorm * 0.3); // rough grip availability
-
-  if (car.drivetrain === 'FWD') {
-    let fAccel = 20 + (pwRatio / gripFactor) * 0.08;
-    let fDecel = fAccel * 0.45;
+ 
+  if (dt === 'FWD') {
+    // Baseline: 100% accel, 0% decel
+    let fAccel = B.diffAccel;
+    let fDecel = B.diffDecel;
     fAccel -= biasMod * 8;
-    if (car.driveStyle==='drift') { fAccel = 60; fDecel = 40; }
-    if (car.driveStyle==='drag')  { fAccel = 68; fDecel = 25; }
-    diff.frontAccel = diffAdj.accel ? Math.round(clamp(fAccel, 10, 100)) : null;
-    diff.frontDecel = diffAdj.decel ? Math.round(clamp(fDecel, 0, 100)) : null;
-  } else if (car.drivetrain === 'RWD') {
-    let rAccel = 35 + (pwRatio / gripFactor) * 0.12 + (torquePerTon - 300) * 0.02;
-    let rDecel = rAccel * 0.50;
-    rAccel -= biasMod * 10;
-    if (car.driveStyle==='drift') { rAccel = 85; rDecel = 55; }
-    if (car.driveStyle==='drag')  { rAccel = 72; rDecel = 30; }
-    diff.rearAccel = diffAdj.accel ? Math.round(clamp(rAccel, 20, 100)) : null;
-    diff.rearDecel = diffAdj.decel ? Math.round(clamp(rDecel, 0, 100)) : null;
-  } else { // AWD
-    // Front: low lock for turn-in, rear: moderate for traction
-    let fAccel = 15 + (pwRatio / gripFactor) * 0.04;
-    let fDecel = fAccel * 0.5;
-    let rAccel = 40 + (pwRatio / gripFactor) * 0.10 + (torquePerTon - 300) * 0.015;
-    let rDecel = rAccel * 0.50;
-    // Center balance: % sent to rear. More rear = more oversteer tendency
-    let center = 58 + biasMod * 12 + (torquePerTon - 300) * 0.01;
-    if (car.driveStyle==='drift') { fAccel=10; fDecel=5; rAccel=82; rDecel=55; center=80; }
-    if (car.driveStyle==='drag')  { fAccel=25; fDecel=12; rAccel=65; rDecel=30; center=65; }
+    // Lower power cars need less lock
+    fAccel -= clamp((300 - pwRatio) * 0.08, 0, 20);
+    if (car.driveStyle === 'drift') { fAccel = 60; fDecel = 40; }
+    if (car.driveStyle === 'drag')  { fAccel = 100; fDecel = 0; }
     diff.frontAccel = diffAdj.accel ? Math.round(clamp(fAccel, 0, 100)) : null;
     diff.frontDecel = diffAdj.decel ? Math.round(clamp(fDecel, 0, 100)) : null;
-    diff.rearAccel  = diffAdj.accel ? Math.round(clamp(rAccel, 0, 100)) : null;
-    diff.rearDecel  = diffAdj.decel ? Math.round(clamp(rDecel, 0, 100)) : null;
-    diff.center     = diffAdj.center ? Math.round(clamp(center, 30, 100)) : null;
+  } else if (dt === 'RWD') {
+    // Baseline: ~65% accel, ~30% decel
+    let rAccel = B.diffAccel;
+    let rDecel = B.diffDecel;
+    rAccel -= biasMod * 10;
+    // High torque = more lock needed
+    rAccel += clamp((torquePerTon - 300) * 0.04, -10, 15);
+    rDecel = rAccel * 0.45;
+    if (car.driveStyle === 'drift') { rAccel = 85; rDecel = 55; }
+    if (car.driveStyle === 'drag')  { rAccel = 75; rDecel = 25; }
+    diff.rearAccel = diffAdj.accel ? Math.round(clamp(rAccel, 0, 100)) : null;
+    diff.rearDecel = diffAdj.decel ? Math.round(clamp(rDecel, 0, 100)) : null;
+  } else {
+    // AWD baseline: FA 100/0, RA 100/59, Center 74
+    let fAccel = B.diffFA, fDecel = B.diffFD;
+    let rAccel = B.diffRA, rDecel = B.diffRD;
+    let center = B.center;
+    // Bias
+    center += biasMod * 6;
+    rDecel += biasMod * 5;
+    // Power scaling: lower power can use less rear lock
+    rAccel -= clamp((350 - pwRatio) * 0.06, 0, 15);
+    fAccel -= clamp((350 - pwRatio) * 0.06, 0, 15);
+    // Torque: high torque = keep locks high
+    rAccel += clamp((torquePerTon - 350) * 0.03, 0, 10);
+    if (car.driveStyle === 'drift') { fAccel=15; fDecel=0; rAccel=90; rDecel=65; center=82; }
+    if (car.driveStyle === 'drag')  { fAccel=80; fDecel=10; rAccel=85; rDecel=25; center=70; }
+    diff.frontAccel = diffAdj.accel ? Math.round(clamp(fAccel, 0, 100)) : null;
+    diff.frontDecel = diffAdj.decel ? Math.round(clamp(fDecel, 0, 100)) : null;
+    diff.rearAccel = diffAdj.accel ? Math.round(clamp(rAccel, 0, 100)) : null;
+    diff.rearDecel = diffAdj.decel ? Math.round(clamp(rDecel, 0, 100)) : null;
+    diff.center = diffAdj.center ? Math.round(clamp(center, 30, 100)) : null;
   }
-
+ 
   // ====== BUILD TUNE OBJECT ======
   const tune = {
     tires: { front: tyrePressureFront, rear: tyrePressureRear },
@@ -1159,10 +1077,10 @@ function generateTune() {
     brakes: canAdjustBrakes() ? { balance:brakeBalance, pressure:brakePressure } : null,
     diff
   };
-
+ 
   renderTune(tune, car);
 }
-
+ 
 // ============================================================
 // RENDER (identical to v6)
 // ============================================================
@@ -1178,7 +1096,7 @@ function renderTune(tune, car) {
     return `<div class="tune-value">${pct}<span class="tune-unit">%</span></div>`;
   };
   const lockedItem = (label) => `<div class="tune-item locked"><div class="tune-label">${label}</div><div class="tune-value na">Not Adjustable</div></div>`;
-
+ 
   let diffItems = '';
   if (car.drivetrain==='AWD') {
     diffItems = `
@@ -1196,7 +1114,7 @@ function renderTune(tune, car) {
       ${tune.diff.rearAccel!==null?`<div class="tune-item"><div class="tune-label">Rear Accel</div><div class="tune-value">${tune.diff.rearAccel}<span class="tune-unit">%</span></div></div>`:lockedItem('Rear Accel')}
       ${tune.diff.rearDecel!==null?`<div class="tune-item"><div class="tune-label">Rear Decel</div><div class="tune-value">${tune.diff.rearDecel}<span class="tune-unit">%</span></div></div>`:lockedItem('Rear Decel')}`;
   }
-
+ 
   let gearingHtml = '';
   if (tune.gearing.canAdjustFinalDrive || tune.gearing.canAdjustGears) {
     const gearRows = tune.gearing.gears.map(g => {
@@ -1216,7 +1134,7 @@ function renderTune(tune, car) {
   } else {
     gearingHtml = `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">⚙️</div>Gearing</div><div class="tune-grid">${lockedItem('Gearing')}</div></div>`;
   }
-
+ 
   let springsHtml = tune.springs
     ? `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🔧</div>Springs</div><div class="tune-grid">
         <div class="tune-item"><div class="tune-label">Front Springs</div>${fmtVal(tune.springs.frontPct,tune.springs.frontActual)}</div>
@@ -1225,7 +1143,7 @@ function renderTune(tune, car) {
         <div class="tune-item"><div class="tune-label">Rear Height</div>${fmtVal(tune.height.rearPct,tune.height.rearActual)}</div>
       </div></div>`
     : `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🔧</div>Springs</div><div class="tune-grid">${lockedItem('Springs & Ride Height')}</div></div>`;
-
+ 
   let dampingHtml = tune.damping
     ? `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🛠️</div>Damping</div><div class="tune-grid">
         <div class="tune-item"><div class="tune-label">Front Bump</div><div class="tune-value">${tune.damping.frontBump}</div></div>
@@ -1234,12 +1152,12 @@ function renderTune(tune, car) {
         <div class="tune-item"><div class="tune-label">Rear Rebound</div><div class="tune-value">${tune.damping.rearRebound}</div></div>
       </div></div>`
     : `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🛠️</div>Damping</div><div class="tune-grid">${lockedItem('Damping')}</div></div>`;
-
+ 
   let steeringHtml = tune.steeringAngle !== null
     ? `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🎯</div>Steering</div><div class="tune-grid">
         <div class="tune-item"><div class="tune-label">Steering Angle</div><div class="tune-value">${tune.steeringAngle}<span class="tune-unit">°</span></div><div class="tune-note">Drift-specific setting</div></div>
       </div></div>` : '';
-
+ 
   let geometryHtml = tune.geometry
     ? `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">📏</div>Suspension Geometry</div><div class="tune-grid">
         <div class="tune-item"><div class="tune-label">Front Roll Center</div><div class="tune-value">${tune.geometry.frontRollCenter}</div></div>
@@ -1248,7 +1166,7 @@ function renderTune(tune, car) {
         <div class="tune-item"><div class="tune-label">Rear Anti-Squat</div><div class="tune-value">${tune.geometry.rearAntiSquat}<span class="tune-unit">%</span></div></div>
       </div></div>`
     : `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">📏</div>Suspension Geometry</div><div class="tune-grid">${lockedItem('Suspension Geometry')}</div></div>`;
-
+ 
   let aeroHtml = `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">💨</div>Aero</div><div class="tune-grid">`;
   aeroHtml += (tune.aero.frontEnabled && tune.aero.frontPct!==null)
     ? `<div class="tune-item"><div class="tune-label">Front Downforce</div>${fmtVal(tune.aero.frontPct,tune.aero.frontActual)}</div>`
@@ -1257,19 +1175,19 @@ function renderTune(tune, car) {
     ? `<div class="tune-item"><div class="tune-label">Rear Downforce</div>${fmtVal(tune.aero.rearPct,tune.aero.rearActual)}</div>`
     : lockedItem('Rear Downforce');
   aeroHtml += `</div></div>`;
-
+ 
   let brakesHtml = tune.brakes
     ? `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🛑</div>Brakes</div><div class="tune-grid">
         <div class="tune-item"><div class="tune-label">Balance</div><div class="tune-value">${tune.brakes.balance}<span class="tune-unit">%</span></div></div>
         <div class="tune-item"><div class="tune-label">Pressure</div><div class="tune-value">${tune.brakes.pressure}<span class="tune-unit">%</span></div></div>
       </div></div>`
     : `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🛑</div>Brakes</div><div class="tune-grid">${lockedItem('Brakes')}</div></div>`;
-
+ 
   let arbHtml = `<div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🔩</div>Anti-Roll Bars</div><div class="tune-grid">`;
   arbHtml += tune.arb.front!==null ? `<div class="tune-item"><div class="tune-label">Front ARB</div><div class="tune-value">${tune.arb.front}</div></div>` : lockedItem('Front ARB');
   arbHtml += tune.arb.rear!==null ? `<div class="tune-item"><div class="tune-label">Rear ARB</div><div class="tune-value">${tune.arb.rear}</div></div>` : lockedItem('Rear ARB');
   arbHtml += `</div></div>`;
-
+ 
   c.innerHTML = `
     <div class="tune-section"><div class="tune-header"><div class="tune-header-icon">🛞</div>Tires</div><div class="tune-grid">
       <div class="tune-item"><div class="tune-label">Front Pressure</div><div class="tune-value">${tune.tires.front.toFixed(1)}<span class="tune-unit"> PSI</span></div></div>
@@ -1285,12 +1203,12 @@ function renderTune(tune, car) {
     </div></div>
     ${arbHtml}${springsHtml}${dampingHtml}${steeringHtml}${geometryHtml}${aeroHtml}${brakesHtml}
     <div class="tune-section"><div class="tune-header"><div class="tune-header-icon">⚡</div>Differential (${car.drivetrain})</div><div class="tune-grid">${diffItems}</div></div>`;
-
+ 
   window.currentTune = tune;
   window.currentCar = car;
   document.getElementById('tuneOutput').scrollIntoView({behavior:'smooth',block:'start'});
 }
-
+ 
 // ============================================================
 // COPY/SAVE (identical structure to v6)
 // ============================================================
@@ -1303,7 +1221,7 @@ function generateTuneText() {
   const piTxt = c.piNumber ? `${c.piClass}${c.piNumber}` : `${c.piClass}-Class`;
   txt += `${c.year} ${c.model}\n${c.drivetrain} | ${piTxt} | ${styleLabel} | ${c.trackType}\n`;
   txt += `${Math.round(c.power)} HP | ${Math.round(c.torque)} LB-FT | ${Math.round(c.weight)} LBS\nDistribution: ${c.weightFront}F / ${c.weightRear}R\n\n`;
-
+ 
   txt += `INSTALLED PARTS\n${'─'.repeat(40)}\n`;
   txt += `Tires: ${getSel('upg_tyreCompound')} compound\nFront: ${getSel('upg_frontTyreWidth')}mm on ${getSel('upg_frontRimSize')}" rims\nRear: ${getSel('upg_rearTyreWidth')}mm on ${getSel('upg_rearRimSize')}" rims\n`;
   const ws = getSel('upg_wheelStyle'); const rn = document.getElementById('upg_rimName').value;
@@ -1312,7 +1230,7 @@ function generateTuneText() {
   const partNames = {upg_fuelSystem:'Fuel System',upg_ignition:'Ignition',upg_exhaust:'Exhaust',upg_airFilter:'Air Filter',upg_intake:'Intake',upg_intercooler:'Intercooler',upg_restrictor:'Restrictor',upg_camshaft:'Camshaft',upg_valves:'Valves',upg_displacement:'Displacement',upg_pistons:'Pistons',upg_flywheel:'Flywheel',upg_oilCooling:'Oil & Cooling',upg_rotors:'Rotors',upg_compression:'Compression',upg_brakes:'Brakes',upg_springs:'Springs & Dampers',upg_frontARB:'Front ARB',upg_rearARB:'Rear ARB',upg_weightReduction:'Weight Reduction',upg_chassis:'Chassis',upg_ballast:'Ballast',upg_clutch:'Clutch',upg_transmission:'Transmission',upg_driveline:'Driveline',upg_differential:'Differential',upg_frontBumper:'Front Bumper',upg_rearBumper:'Rear Bumper',upg_rearWing:'Rear Wing',upg_sideSkirts:'Side Skirts',upg_hood:'Hood',upg_bodykit:'Bodykit',upg_aspirationType:'Aspiration',upg_aspirationLevel:'Forced Induction',upg_engineSwap:'Engine Swap'};
   partIds.forEach(id => { const v = getSel(id); if (v&&v!=='Stock'&&v!=='Stock Engine'&&v!=='No Ballast'&&v!=='Naturally Aspirated') txt += `${partNames[id]}: ${v}\n`; });
   txt += '\n';
-
+ 
   txt += `TIRES\n${'─'.repeat(40)}\nFront: ${t.tires.front.toFixed(1)} PSI | Rear: ${t.tires.rear.toFixed(1)} PSI\n\n`;
   if (t.gearing.canAdjustGears) {
     txt += `GEARING — TARGET SPEEDS @ ${c.redline} RPM (Geometric)\n${'─'.repeat(40)}\n`;
@@ -1336,7 +1254,7 @@ function generateTuneText() {
   txt+=`\n${'═'.repeat(50)}\nGenerated by Planet Pace FM8 AI Tuner v.8\n`;
   return txt;
 }
-
+ 
 function copyTune() {
   const txt = generateTuneText(); if (!txt) return;
   navigator.clipboard.writeText(txt).then(() => { const b=document.querySelector('.copy-btn'); b.textContent='✓ Copied!'; b.style.background='var(--success)'; b.style.color='white'; setTimeout(()=>{b.textContent='📋 Copy';b.style.background='';b.style.color='';},2000); });
@@ -1349,7 +1267,7 @@ function saveTune() {
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt],{type:'text/plain'})); a.download = fn; document.body.appendChild(a); a.click(); document.body.removeChild(a);
   const b=document.querySelector('.save-btn'); b.textContent='✓ Saved!'; setTimeout(()=>{b.textContent='💾 Save to File';},2000);
 }
-
+ 
 // ============================================================
 // CONTEXT-AWARE FEEDBACK ENGINE
 // ============================================================
@@ -1390,7 +1308,7 @@ function getTuneValue(tune, key) {
   };
   return map[key] || null;
 }
-
+ 
 function fmtAdj(t, c, key, delta, fallbackDesc) {
   const info = t ? getTuneValue(t, key) : null;
   if (info && info.v !== null && info.v !== undefined) {
@@ -1401,7 +1319,7 @@ function fmtAdj(t, c, key, delta, fallbackDesc) {
   if (info && info.v === null) return `${fallbackDesc} <em style="color:var(--text-muted)">(not adjustable with current parts)</em>`;
   return fallbackDesc;
 }
-
+ 
 function gearAdj(t, c, gearIdx, deltaMph, direction) {
   if (t?.gearing?.gears?.[gearIdx]) {
     const g = t.gearing.gears[gearIdx];
@@ -1415,7 +1333,7 @@ function gearAdj(t, c, gearIdx, deltaMph, direction) {
   const sfx = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th'][gearIdx]||`Gear ${gearIdx+1}`;
   return `${direction==='longer'?'Lengthen':'Shorten'} ${sfx} gear by ~${deltaMph} mph`;
 }
-
+ 
 function gearGaps(t, c) {
   if (!t?.gearing?.gears) return null;
   const sl = c.speedUnit==='km/h'?'km/h':'mph';
@@ -1424,7 +1342,7 @@ function gearGaps(t, c) {
   for(let i=1;i<speeds.length;i++) gaps.push({pair:`${i}→${i+1}`, gap:speeds[i]-speeds[i-1], hi:i+1, lo:i});
   return {gaps, speeds, sl};
 }
-
+ 
 const feedbackRules = [
   // CORNERING
   {patterns:['lacks? mid.?corner grip','no grip mid.?corner','understeer.*(middle|mid)','pushing mid.?corner'],
@@ -1735,7 +1653,7 @@ const feedbackRules = [
       {text:fmtAdj(t,c,'reboundR',1.0,'Increase rear rebound by 1.0'),magnitude:'medium'},
     ],explanation:'More rebound slows weight transfer, giving more time to react.'}
 ];
-
+ 
 function analyzeFeedback() {
   const input = document.getElementById('feedbackInput').value.toLowerCase();
   const rd = document.getElementById('feedbackResults');
@@ -1753,8 +1671,8 @@ function analyzeFeedback() {
     return `<div class="feedback-card"><h4>🔍 ${m.symptom}</h4><p><strong>Likely cause:</strong> ${m.cause}</p><p><strong>Recommended adjustments:</strong></p><ul>${adjs.map(a=>`<li>${a.text}<span class="magnitude ${a.magnitude}">${a.magnitude}</span></li>`).join('')}</ul><p style="font-size:11px;color:var(--text-muted);margin-top:10px;"><strong>Why:</strong> ${m.explanation}</p></div>`;
   }).join('');
 }
-
-
+ 
+ 
 </script>
 </body>
 </html>
